@@ -7,12 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTheme } from "@react-navigation/native";
 import Icons from "@expo/vector-icons/MaterialIcons";
 import MasonryList from "reanimated-masonry-list";
 import { BlurView } from "expo-blur";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import CustomBackdrop from "../components/CustomBackdrop";
 
 const CATEGORIES = [
   "Clothing",
@@ -63,6 +65,14 @@ const AVATAR_URL =
 const HomeScreen = (props: Props) => {
   const { colors } = useTheme();
   const [categoryIndex, setCategoryIndex] = useState(0);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const openFilterModal = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+  const handleSheetChanges = useCallback((index: number) => {
+    console.log("handleSheetChanges", index);
+  }, []);
 
   return (
     <ScrollView>
@@ -150,6 +160,7 @@ const HomeScreen = (props: Props) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={openFilterModal}
             style={{
               width: 52,
               aspectRatio: 1,
@@ -339,6 +350,14 @@ const HomeScreen = (props: Props) => {
           onEndReachedThreshold={0.1}
         />
       </SafeAreaView>
+      <BottomSheetModal
+        snapPoints={["80%"]}
+        index={0}
+        ref={bottomSheetModalRef}
+        backdropComponent={(props) => <CustomBackdrop {...props} />}
+      >
+        <Text>Modal</Text>
+      </BottomSheetModal>
     </ScrollView>
   );
 };
