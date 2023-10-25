@@ -8,6 +8,8 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, useColorScheme } from "react-native";
 import RootNavigator from "./src/screens/navigators/RootNavigator";
 import { useMemo } from "react";
+import "react-native-gesture-handler";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const colorScheme = useColorScheme();
@@ -35,14 +37,14 @@ export default function App() {
           },
     [colorScheme]
   );
-  
+
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
       <NavigationContainer theme={theme}>
         <RootNavigator />
         <StatusBar style="dark" />
       </NavigationContainer>
-    </View>
+    </GestureHandlerRootView>
   );
 }
 
