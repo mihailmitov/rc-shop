@@ -15,6 +15,7 @@ import MasonryList from "reanimated-masonry-list";
 import { BlurView } from "expo-blur";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import CustomBackdrop from "../components/CustomBackdrop";
+import FilterView from "../components/FilterView";
 
 const CATEGORIES = [
   "Clothing",
@@ -356,7 +357,7 @@ const HomeScreen = (props: Props) => {
         ref={bottomSheetModalRef}
         backdropComponent={(props) => <CustomBackdrop {...props} />}
       >
-        <Text>Modal</Text>
+        <FilterView />
       </BottomSheetModal>
     </ScrollView>
   );
